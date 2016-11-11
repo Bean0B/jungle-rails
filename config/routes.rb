@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
 
   root to: 'products#index'
+ # these routes are for showing users a login form, logging them in, and logging them out.
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  get '/logout' => 'sessions#destroy'
+
+#these routes are for shower users a signup form and creating a new user
+  get '/signup' => 'users#new'
+  post '/users' => 'users#create'
 
   resources :products, only: [:index, :show]
   resources :categories, only: [:show]
@@ -12,6 +20,7 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create, :show]
 
+#these routes are for admin to create, edit and delete products and categories
   namespace :admin do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
