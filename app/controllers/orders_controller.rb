@@ -1,7 +1,13 @@
 class OrdersController < ApplicationController
 
-  def show
+ def show
     @order = Order.find(params[:id])
+    respond_to do |format|
+      # Tell the UserMailer to send a order confirmation after order complete
+      UserMailer.order_email(@order).deliver_later
+      format.json {render json: @order, status: :created, location: @user}
+      format.html {@order}
+    end
   end
 
   def create

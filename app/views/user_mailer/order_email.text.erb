@@ -1,0 +1,12 @@
+Thank you for your order!
+===============================================
+
+You have successfully completed your order:
+    <% @order.line_items.each do |item| %>
+      <%= item.quantity %>  <%= item.product.name %> - <%= item.total_price_cents %>
+    <% end %>
+    TOTAL: <%= @order.total_cents %>
+
+To continue shopping, just follow this link: <%= @url %>.
+
+Thanks for your purchase and have a great day!
