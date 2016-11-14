@@ -129,5 +129,62 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+##USERS
+puts "Lonely? I'll make up some users..."
+
+User.create!({
+  first_name: "Lucy",
+  last_name: "Shmoop",
+  password: "lucy",
+  email: "lucy@fake.com"
+  })
+
+User.create!({
+  first_name: "Kiki",
+  last_name: "Shmoop",
+  password: "kiki",
+  email: "kiki@fake.com"
+  })
+
+User.create!({
+  first_name: "Mel",
+  last_name: "Shmoop",
+  password: "mel",
+  email: "mel@fake.com"
+  })
+
+## REVIEWS
+
+puts "Creating fake reviews..."
+
+Review.destroy_all
+
+Review.create!({
+  product_id: 1,
+  user_id: 1,
+  description: "Wow stuff!",
+  rating: 4
+  })
+
+Review.create!({
+  product_id: 2,
+  user_id: 2,
+  description: "YUCK!",
+  rating: 2
+  })
+
+Review.create!({
+  product_id: 5,
+  user_id: 3,
+  description: "MEH",
+  rating: 0
+  })
+
+Review.create!({
+  product_id: 1,
+  user_id: 2,
+  description: "It is so super!",
+  rating: 4
+  })
 
 puts "DONE!"

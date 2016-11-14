@@ -28,4 +28,38 @@
 
   </article>
 
+<h2>Reviews</h2>
+<% @product.reviews.each do |review| %>
+  <p>
+    <strong>User</strong>
+    <%= review.user.first_name %>
+  </p>
+      <strong>Rating</strong>
+    <%= review.rating %>
+  </p>
+
+  <p>
+    <strong>review:</strong>
+    <%= review.description %>
+  </p>
+<% end %>
+
+  <h2>Add a review:</h2>
+<%= form_for([@product, @product.reviews.build]) do |f| %>
+  <p>
+    <%= f.label :rating %><br>
+    <%= f.select :rating, options_for_select(0..5) %>
+  </p>
+  <p>
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+|
+<%= link_to 'Back', products_path %>
+
 </section>
