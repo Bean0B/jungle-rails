@@ -28,38 +28,68 @@
 
   </article>
 
-<h2>Reviews</h2>
-<% @product.reviews.each do |review| %>
-  <p>
-    <strong>User</strong>
-    <%= review.user.first_name %>
-  </p>
-      <strong>Rating</strong>
-    <%= review.rating %>
-  </p>
+  <% if current_user %>
 
-  <p>
-    <strong>review:</strong>
-    <%= review.description %>
-  </p>
-<% end %>
+    <div class="col-sm-4">
+      <h3>Leave a Review</h3>
+        <%= form_for [@product, Review.new] do |form| %>
 
-  <h2>Add a review:</h2>
-<%= form_for([@product, @product.reviews.build]) do |f| %>
-  <p>
-    <%= f.label :rating %><br>
-    <%= f.select :rating, options_for_select(0..5) %>
-  </p>
-  <p>
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+          <% if form.object.errors.any? %>
+            <div class="alert alert-danger">
+              <strong>The following errors prevented saving:</strong>
+              <ul>
+                <% form.object.errors.full_messages.each do |error| %>
+                  <li><%= error %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-|
-<%= link_to 'Back', products_path %>
+        <div class="form-group">
+          <%= form.label :rating %>
+          <%= form.select :rating, options_for_select(0..5), class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= form.label :description %>
+          <%= form.text_area :description, class: 'form-control' %>
+        </div>
+
+        <%= form.submit 'Add a review', class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+
+  <% else %>
+    <h2> Want to review a product?</h2>
+    <%= link_to 'Log in', login_path, class: 'btn btn-primary' %>
+    <%= link_to 'or sign up here!', signup_path, class: 'btn btn-primary' %>
+    <% end %>
+
+  <div class="col-sm-4">
+    <h2>Reviews</h2>
+    <% @product.reviews.reverse_each do |review| %>
+
+    <div class="well">
+      <h4>
+        <%= review.user.first_name %>
+      </h4>
+      <p>
+        <strong>Rating</strong>
+        <%= review.rating %>
+      </p>
+
+      <p>
+        <strong>review:</strong>
+        <%= review.description %>
+      </p>
+      <% if current_user.id == review.user.id %>
+          <%= link_to fa_icon('trash'), [review.product, review], class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %>
+      <% end %>
+    </div>
+  <% end %>
+
+
+<%= link_to 'Back to Products', products_path, class: 'btn btn-primary' %>
+  </div>
 
 </section>

@@ -25,10 +25,10 @@
           </a>
           <ul class="dropdown-menu">
           <% if current_user %>
-            <li><%= link_to "Logout", '/logout' %></li>
+            <li><%= link_to "Logout", logout_path %></li>
           <% else %>
-            <li><%= link_to 'Log in', '/login' %></li>
-            <li><%= link_to 'or sign up here!', '/signup' %></li>
+            <li><%= link_to 'Log in', login_path %></li>
+            <li><%= link_to 'or sign up here!', signup_path %></li>
           <% end %>
           </ul>
         </li>
