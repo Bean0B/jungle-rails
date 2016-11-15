@@ -25,7 +25,7 @@ RSpec.describe Product, type: :model do
         })
 
       expect(@product.save).to be false
-      expect(@product.errors.full_messages.empty?).to be false
+      expect(@product.errors.full_messages).to include "Name can't be blank"
     end
 
     it "is false with no price" do
@@ -36,7 +36,7 @@ RSpec.describe Product, type: :model do
         category: @category
         })
       expect(@product.save).to be false
-      expect(@product.errors.full_messages.empty?).to be false
+      expect(@product.errors.full_messages).to include "Price is not a number"
     end
 
         it "is false with no quantity" do
@@ -47,7 +47,7 @@ RSpec.describe Product, type: :model do
         category: @category
         })
       expect(@product.save).to be false
-      expect(@product.errors.full_messages.empty?).to be false
+      expect(@product.errors.full_messages).to include "Quantity can't be blank"
     end
 
     it "is false with no category" do
@@ -58,7 +58,7 @@ RSpec.describe Product, type: :model do
         quantity: 10,
         })
       expect(@product.save).to be false
-      expect(@product.errors.full_messages.empty?).to be false
+      expect(@product.errors.full_messages).to include "Category can't be blank"
     end
 
   end
