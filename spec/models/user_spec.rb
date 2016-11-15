@@ -122,4 +122,60 @@ RSpec.describe User, type: :model do
     end
 
   end
+
+  describe '.authenticate_with_credentials' do
+
+   it 'should return user if params are correct' do
+      user = User.new({
+              first_name: 'test',
+              last_name: 'test',
+              email: "test@test.com",
+              password: 'test',
+              password_confirmation: "test"
+              })
+      user.save
+      @user = User.authenticate_with_credentials("test@test.com", "test")
+      expect(@user).to eql user
+   end
+
+   it 'should return user if email has extra spaces' do
+      user = User.new({
+              first_name: 'test',
+              last_name: 'test',
+              email: "test@test.com",
+              password: 'test',
+              password_confirmation: "test"
+              })
+      user.save
+      @user = User.authenticate_with_credentials(" test@test.com ", "test")
+      expect(@user).to eql user
+   end
+
+   it 'should return user if email has diff case' do
+      user = User.new({
+              first_name: 'test',
+              last_name: 'test',
+              email: "test@test.com",
+              password: 'test',
+              password_confirmation: "test"
+              })
+      user.save
+      @user = User.authenticate_with_credentials("TEST@test.com", "test")
+      expect(@user).to eql user
+   end
+
+   it 'should return nil if email is wrong' do
+      user = User.new({
+              first_name: 'test',
+              last_name: 'test',
+              email: "test@test.com",
+              password: 'test',
+              password_confirmation: "test"
+              })
+      user.save
+      @user = User.authenticate_with_credentials("nottest@test.com", "test")
+      expect(@user).to be nil
+   end
+
+  end
 end

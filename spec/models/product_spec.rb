@@ -63,4 +63,3 @@ RSpec.describe Product, type: :model do
 
   end
 end
-  #pending "add some examples to (or delete) #{__FILE__}"
