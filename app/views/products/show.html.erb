@@ -82,8 +82,10 @@
         <strong>review:</strong>
         <%= review.description %>
       </p>
-      <% if current_user.id == review.user.id %>
-          <%= link_to fa_icon('trash'), [review.product, review], class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %>
+        <% if current_user %>
+          <% if current_user.id == review.user.id %>
+              <%= link_to fa_icon('trash'), [review.product, review], class: 'btn btn-sm btn-danger', method: :delete, data: { confirm: "Are you sure?" } %>
+           <% end %>
       <% end %>
     </div>
   <% end %>
